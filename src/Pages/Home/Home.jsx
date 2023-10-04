@@ -21,7 +21,7 @@ const Home = () => {
         <div className=" col-span-2">
           <h3>Dragon News Home</h3>
           {news.map((news) => (
-            <NewsCard key={news.id} news={news}></NewsCard>
+            <NewsCard key={news._id} news={news}></NewsCard>
           ))}
         </div>
         <div>

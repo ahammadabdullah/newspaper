@@ -1,6 +1,5 @@
 import { FaBookmark, FaEye, FaShareAlt, FaStar } from "react-icons/fa";
-import userImg from "../assets/user.png";
-import imgBanner from "../assets/editorsInsight1.png";
+
 import { Link } from "react-router-dom";
 
 const NewsCard = ({ news }) => {
@@ -34,6 +33,7 @@ const NewsCard = ({ news }) => {
             <p>
               {details.slice(0, 200)}{" "}
               <Link
+                key={_id}
                 to={`/news/${_id}`}
                 className="font-bold text-yellow-700 block"
               >

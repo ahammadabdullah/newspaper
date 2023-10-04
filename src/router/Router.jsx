@@ -15,10 +15,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("news.json"),
+        loader: () => fetch("/news.json"),
       },
       {
-        path: "/news",
+        path: "/news/:id",
         element: <News />,
       },
       {
