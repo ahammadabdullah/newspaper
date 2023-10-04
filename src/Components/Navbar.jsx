@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import userImg from "../assets/user.png";
 const Navbar = () => {
   return (
-    <div className="flex items-center my-6">
+    <div className="flex items-center py-6">
       <div className="navbar-start"></div>
       <div className="navbar-center">
         <ul className="flex gap-5 ">
