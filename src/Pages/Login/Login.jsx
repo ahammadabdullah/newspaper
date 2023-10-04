@@ -1,7 +1,21 @@
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
+import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
+  const { signIn } = useAuth();
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    signIn(email, password)
+      .then(() => {
+        toast.success("Successfully signed In");
+      })
+      .catch((err) => toast.error(err.message));
+  };
   return (
     <div className="bg-gray-100 min-h-screen ">
       <div className="max-w-7xl mx-auto">
@@ -12,7 +26,7 @@ const Login = () => {
               Login to your account
             </h3>
             <hr />
-            <form className="pt-10">
+            <form onSubmit={handleLogin} className="pt-10">
               <label className="block text-left">Email Address</label>
               <input
                 className="w-full bg-gray-100 py-5 pl-5 my-4"

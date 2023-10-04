@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
+import auth from "../../config/firebase.config";
 
 const Register = () => {
   const { signUp } = useAuth();
@@ -9,10 +11,22 @@ const Register = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const image = e.target.photo.value;
+    const name = e.target.name.value;
     console.log(email, password);
-    signUp(email, password)
+    // toast.success("Successfully signed Up")
+    signUp(email, password, image, name)
       .then(() => {
-        toast.success("Successfully signed Up");
+        updateProfile(auth.currentUser, {
+          photoURL: image,
+          displayName: name,
+        })
+          .then(() => {
+            toast.success("Successfully signed Up");
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
       })
       .catch((err) => toast.error(err.message));
   };
@@ -60,7 +74,7 @@ const Register = () => {
                   <input
                     className="w-full bg-black rounded-md py-4 text-white my-4"
                     type="submit"
-                    value="login"
+                    value="Register"
                   />
                 </form>
                 <p className="py-8">

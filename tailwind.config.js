@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "right-side-bg": "url('../news-site/src/assets/bg.png')",
+        "right-side-bg": "url('https://i.ibb.co/x1QD1MQ/bg.png')",
       },
     },
   },

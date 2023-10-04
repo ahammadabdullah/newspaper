@@ -1,6 +1,19 @@
 import { Link, NavLink } from "react-router-dom";
 import userImg from "../assets/user.png";
+import useAuth from "../Hooks/useAuth";
+import { toast } from "react-hot-toast";
 const Navbar = () => {
+  const { logOut, user } = useAuth();
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logged out Successfully");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   return (
     <div className="flex items-center py-6">
       <div className="navbar-start"></div>
@@ -50,11 +63,29 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className=" flex gap-5  navbar-end">
-        <img className="w-10" src={userImg} alt="usrAvatar" />
-        <button className="text-white py-2 px-3 bg-black">
-          <Link to={"/login"}>Login</Link>
-        </button>
+      <div className=" flex gap-5  items-center navbar-end">
+        {user?.photoURL ? (
+          <img
+            className="w-10 rounded-full"
+            src={user.photoURL}
+            alt="usrAvatar"
+          />
+        ) : (
+          <img className="w-10" src={userImg} alt="usrAvatar" />
+        )}
+        {user?.displayName && <p>{user.displayName}</p>}
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="text-white py-2 px-3 bg-black"
+          >
+            Logout
+          </button>
+        ) : (
+          <button className="text-white py-2 px-3 bg-black">
+            <Link to={"/login"}>Login</Link>
+          </button>
+        )}
       </div>
     </div>
   );
