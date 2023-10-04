@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
@@ -7,13 +7,14 @@ import auth from "../../config/firebase.config";
 
 const Register = () => {
   const { signUp } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleRegister = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     const image = e.target.photo.value;
     const name = e.target.name.value;
-    console.log(email, password);
     // toast.success("Successfully signed Up")
     signUp(email, password, image, name)
       .then(() => {
@@ -23,6 +24,7 @@ const Register = () => {
         })
           .then(() => {
             toast.success("Successfully signed Up");
+            navigate(location?.state ? location.state : "/");
           })
           .catch((err) => {
             toast.error(err.message);

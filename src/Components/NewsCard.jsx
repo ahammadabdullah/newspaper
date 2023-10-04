@@ -35,6 +35,7 @@ const NewsCard = ({ news }) => {
               <Link
                 key={_id}
                 to={`/news/${_id}`}
+                state={`/news/${_id}`}
                 className="font-bold text-yellow-700 block"
               >
                 read more

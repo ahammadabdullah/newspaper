@@ -1,18 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { signIn } = useAuth();
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+
     signIn(email, password)
       .then(() => {
         toast.success("Successfully signed In");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => toast.error(err.message));
   };
@@ -49,7 +52,11 @@ const Login = () => {
             </form>
             <p className="pb-16">
               Dont’t Have An Account ?{" "}
-              <Link to={"/register"} className=" font-bold">
+              <Link
+                state={location.state}
+                to={"/register"}
+                className=" font-bold"
+              >
                 Register
               </Link>
             </p>
