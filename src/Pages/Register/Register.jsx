@@ -15,7 +15,15 @@ const Register = () => {
     const password = e.target.password.value;
     const image = e.target.photo.value;
     const name = e.target.name.value;
-    // toast.success("Successfully signed Up")
+    const passRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    console.log(password);
+    if (!passRegex.test(password)) {
+      toast.error(
+        "Password must be at least 8 characters and a uppercase letter and a digit"
+      );
+      return;
+    }
     signUp(email, password, image, name)
       .then(() => {
         updateProfile(auth.currentUser, {
